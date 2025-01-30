@@ -1378,6 +1378,41 @@ async function 生成配置信息(userID, hostName, sub, UA, RproxyIP, _url, fak
 			singbox订阅地址:<br>
 			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${uuid}?sb','qrcode_3')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${uuid}?sb</a><br>
 			<div id="qrcode_3" style="margin: 10px 10px 10px 10px;"></div>
+
+			<script src="https://cdn.jsdelivr.net/npm/@keeex/qrcodejs-kx@1.0.2/qrcode.min.js"></script>
+			<script>
+			function copyToClipboard(text, qrcode) {
+				navigator.clipboard.writeText(text).then(() => {
+					alert('已复制到剪贴板');
+				}).catch(err => {
+					console.error('复制失败:', err);
+				});
+				const qrcodeDiv = document.getElementById(qrcode);
+				qrcodeDiv.innerHTML = '';
+				new QRCode(qrcodeDiv, {
+					text: text,
+					width: 220, // 调整宽度
+					height: 220, // 调整高度
+					colorDark: "#000000", // 二维码颜色
+					colorLight: "#ffffff", // 背景颜色
+					correctLevel: QRCode.CorrectLevel.Q, // 设置纠错级别
+					scale: 1 // 调整像素颗粒度
+				});
+			}
+
+			function toggleNotice() {
+				const noticeContent = document.getElementById('noticeContent');
+				const noticeToggle = document.getElementById('noticeToggle');
+				if (noticeContent.style.display === 'none') {
+					noticeContent.style.display = 'block';
+					noticeToggle.textContent = '实用订阅技巧∧';
+				} else {
+					noticeContent.style.display = 'none'; 
+					noticeToggle.textContent = '实用订阅技巧∨';
+				}
+			}
+			</script>
+
 			---------------------------------------------------------------<br>
 			################################################################<br>
 			${cmad}
